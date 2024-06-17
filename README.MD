@@ -1,3 +1,5 @@
+HEAVILY WIP: Like I started it and worked on it for a few hours, it doesn't work or do anything right now.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 # ImageSweeper
