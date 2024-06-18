@@ -1,9 +1,3 @@
-export enum Difficulty {
-    Easy = 100,
-    Medium = 75,
-    Hard = 50,
-}
-
 export interface Node {
     hasBomb: boolean,
     isRevealed: boolean,
@@ -14,9 +8,7 @@ export interface Minefield {
     field: Array<Array<Node>>
 }
 
-export function createField(width: number, height: number, difficulty: Difficulty) : Minefield {
-    const columns = width / difficulty;
-    const rows = height / difficulty;
+export function createField(rows: number, columns: number) : Minefield {
     let field: Node[][] = [];
     for (let i = 0; i < columns; i++) {
         field.push([]);
