@@ -1,17 +1,24 @@
-import Image from 'next/image'
-import { Minefield, Node, createField } from '@/utilities/minefield'
+'use client'
+
+import { useState } from 'react';
+import { createField, revealNode } from '@/utilities/minefield'
 import GridButton from './components/GridButton';
 
 export default function ImageSweeper() {
   const cols = 5;
   const rows = 5;
-  const minefield: Minefield = createField(5, 5);
+  const gridStyle = `grid grid-cols-${cols} grid-rows-${rows} mt-[150px]`;
+  const [minefield, setMinefield] = useState(createField(5, 5));
   return (
     <div className="flex justify-center">
-      <div className={`grid grid-cols-${cols} grid-rows-${rows} mt-[150px]`}>
-        {minefield.field.map(row => (
+      <div className={gridStyle}>
+        {minefield.map(row => (
           row.map(node => (
-            <GridButton node={node} gameActive/>
+            <GridButton node={node} 
+                        revealCallback={(x: number, y: number) => revealNode(minefield, x, y)} 
+                        gameActive
+                        key={`${node.x},${node.y}`}
+            />
           ))
         ))}
       </div>
