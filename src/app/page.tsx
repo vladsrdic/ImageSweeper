@@ -1,5 +1,7 @@
-import Image from 'next/image'
-import { Minefield, Node, createField } from '@/utilities/minefield'
+'use client'
+
+import { useState } from 'react';
+import { createField, revealNode } from '@/utilities/minefield'
 import GridButton from './components/GridButton';
 
 export default function ImageSweeper() {
@@ -18,14 +20,18 @@ export default function ImageSweeper() {
   const gridSize = sizeToNumber[size];
   const gridCSS: string = sizeToCSS[size]
 
-  const minefield: Minefield = createField(gridSize, gridSize);
+  const [minefield, setMinefield] = useState(createField(gridSize, gridSize));
   const buttonSize: number = 900 / gridSize;
   return (
     <div className="flex justify-center">
       <div className={`${gridCSS} w-[900px] h-[900px] bg-cover`} style={{"backgroundImage": "url(https://d2zp5xs5cp8zlg.cloudfront.net/image-88409-800.jpg)"}}>
-        {minefield.field.map(row => (
+        {minefield.map(row => (
           row.map(node => (
-            <GridButton key={node.Key} node={node} gameActive size={buttonSize}/>
+            <GridButton key={`${node.x}${node.y}`} 
+                        node={node}
+                        revealCallback={(x: number, y: number) => revealNode(minefield, x, y)}
+                        gameActive 
+                        size={buttonSize}/>
           ))
         ))}
       </div>

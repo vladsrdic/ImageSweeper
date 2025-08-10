@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { Node } from '@/utilities/minefield'
 import Image from 'next/image';
 
-function GridButton(props: { node: Node, gameActive?: boolean, size: number }) {
-    var { node, gameActive, size } = props;
+function GridButton(props: { node: Node, revealCallback: Function, gameActive?: boolean, size: number }) {
+    var { node, revealCallback, gameActive, size } = props;
 
     const [nodeRevealed, setNodeRevealed] = useState(node.isRevealed);
     const [nodeFlagged, setNodeFlagged] = useState(node.isFlagged);
@@ -14,6 +14,7 @@ function GridButton(props: { node: Node, gameActive?: boolean, size: number }) {
         if (nodeRevealed)
             return;
 
+        revealCallback(node.x, node.y);
         setNodeRevealed(true);
         setNodeFlagged(false);
         node.isRevealed = true;
@@ -36,7 +37,7 @@ function GridButton(props: { node: Node, gameActive?: boolean, size: number }) {
     else if (node.hasBomb && nodeRevealed)
         imgPath = "/bomb.png";
     else if (nodeRevealed)
-        imgPath = "";
+        imgPath = "revealed";
 
     return (
         <div>
@@ -44,7 +45,9 @@ function GridButton(props: { node: Node, gameActive?: boolean, size: number }) {
                 onClick={gameActive ? onClick : undefined}
                 onContextMenu={gameActive ? onFlag : undefined}
             >
-                <Image className={(nodeRevealed && !node.hasBomb && !nodeFlagged) ? "opacity-0" : ""} src={imgPath} width={size} height={size} alt=""/>
+                {imgPath === "revealed" ? (<div>{node.nearbyBombs}</div>) : (
+                    <Image src={imgPath} width={size} height={size} alt="Minesweeper tile"/>
+                )}
             </button>
         </div>
     );
