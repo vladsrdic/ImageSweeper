@@ -12,7 +12,7 @@ export function createField(rows: number, columns: number) : Node[][] {
     for (let i = 0; i < columns; i++) {
         field.push([]);
         for (let j = 0; j < rows; j++) {
-            field[i].push({hasBomb: generateBomb(), isRevealed: false, isFlagged: false, x: i, y: j});
+            field[i].push({hasBomb: generateBomb(), isRevealed: false, isFlagged: false, x: i, y: j})
         }
     }
 
@@ -37,6 +37,10 @@ export function revealNode(minefield: Node[][], x: number, y: number) {
 
     minefield[x][y].isRevealed = true;
 
+    revealNode(minefield, x - 1, y - 1);
+    revealNode(minefield, x - 1, y + 1);
+    revealNode(minefield, x + 1, y + 1);
+    revealNode(minefield, x + 1, y - 1);
     revealNode(minefield, x - 1, y);
     revealNode(minefield, x + 1, y);
     revealNode(minefield, x, y - 1);
