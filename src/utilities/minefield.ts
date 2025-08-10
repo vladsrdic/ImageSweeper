@@ -2,6 +2,7 @@ export interface Node {
     hasBomb: boolean,
     isRevealed: boolean,
     isFlagged: boolean,
+    Key: string
 }
 
 export interface Minefield {
@@ -13,7 +14,7 @@ export function createField(rows: number, columns: number) : Minefield {
     for (let i = 0; i < columns; i++) {
         field.push([]);
         for (let j = 0; j < rows; j++) {
-            field[i].push({hasBomb: generateBomb(), isRevealed: false, isFlagged: false})
+            field[i].push({hasBomb: generateBomb(), isRevealed: false, isFlagged: false, Key: `${i}${j}`})
         }
     }
 

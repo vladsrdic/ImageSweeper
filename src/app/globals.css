@@ -19,3 +19,18 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+.grid-small {
+  grid-template-columns: repeat(5, 180px);
+  grid-template-rows: repeat(5, 180px);
+}
+
+.grid-medium {
+  grid-template-columns: repeat(10, 90px);
+  grid-template-rows: repeat(10, 90px);
+}
+
+.grid-large {
+  grid-template-columns: repeat(18, 50px);
+  grid-template-rows: repeat(18, 50px);
+}
